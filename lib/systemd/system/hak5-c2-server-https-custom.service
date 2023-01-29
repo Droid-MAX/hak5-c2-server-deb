@@ -1,0 +1,16 @@
+[Unit]
+Description=Hak5 C2 server
+After=network.target syslog.target
+Conflicts=hak5-c2-server-https-custom@.service hak5-c2-server-https.service hak5-c2-server-https@.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/hak5/c2-https.cfg
+ExecStart=/usr/bin/c2-server -hostname $HOSTNAME -db $DB_PATH -listenip $LISTEN_IP -listenport $LISTEN_PORT -sshport $SSH_PORT -https -certFile $CERT_FILE -keyFile $KEY_FILE
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+RestartPreventExitStatus=23
+
+[Install]
+WantedBy=multi-user.target
