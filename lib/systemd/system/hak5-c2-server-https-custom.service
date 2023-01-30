@@ -5,6 +5,7 @@ Conflicts=hak5-c2-server-https-custom@.service hak5-c2-server-https.service hak5
 
 [Service]
 Type=simple
+WorkingDirectory=/etc/hak5
 EnvironmentFile=/etc/hak5/c2-https.cfg
 ExecStart=/usr/bin/c2-server -hostname $HOSTNAME -db $DB_PATH -listenip $LISTEN_IP -listenport $LISTEN_PORT -sshport $SSH_PORT -https -certFile $CERT_FILE -keyFile $KEY_FILE
 ExecReload=/bin/kill -HUP $MAINPID
